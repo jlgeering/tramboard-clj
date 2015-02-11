@@ -3,32 +3,32 @@
   :url "http://example.com/FIXME"
   :min-lein-version "2.0.0"
 
-  :dependencies [[cljs-ajax "0.3.4"]
-                 [cljs-uuid "0.0.4"]
+  :dependencies [[cljs-uuid "0.0.4"]
                  [clj-time "0.9.0"]
                  [compojure "1.3.1"]
                  [com.andrewmcveigh/cljs-time "0.3.0"]
+                 [cheshire "5.4.0"]
                  [hiccup "1.0.0"]
                  [http-kit "2.1.18"]
                  [org.clojure/clojure "1.6.0"]
                  [org.clojure/clojurescript "0.0-2727"]
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]
-                 [org.omcljs/om "0.8.7"]
-                 [ring-json-response "0.2.0"]
+                 [org.omcljs/om "0.8.8"]
                  [ring/ring-defaults "0.1.2"]
                  [ring/ring-jetty-adapter "1.2.1"]
                  [ring/ring-mock "0.2.0"]
-                 [secretary "1.2.1"]]
+                 [ring/ring-codec "1.0.0"]
+                 [ring/ring-json "0.3.1"]
+                 [bk/ring-gzip "0.1.1"]
+                 [org.clojars.jws/ring-etag-middleware "0.1.2-SNAPSHOT"]
+                 [org.clojars.fterrier/om-autocomplete "0.2.0-SNAPSHOT"]]
 
   :plugins [[lein-cljsbuild "1.0.3"]
-            [lein-git-deps "0.0.2-SNAPSHOT"]
             [lein-less "1.7.2"]]
-
-  :git-dependencies [["https://github.com/fterrier/om-autocomplete.git"]]
 
   :uberjar-name "tramboard-clj.jar"
 
-  :cljsbuild {:builds {:app {:source-paths ["src" ".lein-git-deps/om-autocomplete/src/"]}}}
+  :cljsbuild {:builds {:app {:source-paths ["src"]}}}
 
   :less {:source-paths ["src/less"]
          :target-path "resources/public/css"}

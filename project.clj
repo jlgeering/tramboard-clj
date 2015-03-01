@@ -20,20 +20,22 @@
                  [ring/ring-codec "1.0.0"]
                  [ring/ring-json "0.3.1"]
                  [bk/ring-gzip "0.1.1"]
+                 [secretary "1.2.1"]
                  [org.clojars.jws/ring-etag-middleware "0.1.2-SNAPSHOT"]
-                 [org.clojars.fterrier/om-autocomplete "0.2.0-SNAPSHOT"]]
+                 [org.clojars.fterrier/om-autocomplete "0.2.0-SNAPSHOT"]
+                 [com.newrelic.agent.java/newrelic-api "3.13.0"]]
 
-  :plugins [[lein-cljsbuild "1.0.3"]
+  :plugins [[lein-cljsbuild "1.0.4"]
             [lein-less "1.7.2"]]
 
   :uberjar-name "tramboard-clj.jar"
-
-  :cljsbuild {:builds {:app {:source-paths ["src"]}}}
+  :source-paths ["src/clj"]
+  :cljsbuild {:builds {:app {:source-paths ["src/cljs"]}}}
 
   :less {:source-paths ["src/less"]
          :target-path "resources/public/css"}
 
-  :profiles {:dev {:source-paths ["env/dev/src"]
+  :profiles {:dev {:source-paths ["env/dev/src/clj"]
                    :dependencies [[figwheel-sidecar "0.2.1-SNAPSHOT"]
                                   [figwheel "0.2.1-SNAPSHOT"]
                                   [midje "1.6.3"]]
@@ -46,18 +48,18 @@
 
                    :ring {:handler tramboard-clj.core.handler/app}
                    :figwheel {:css-dirs ["resources/public/css"]}
-                   :cljsbuild {:builds {:app {:source-paths ["env/dev/src"]
+                   :cljsbuild {:builds {:app {:source-paths ["env/dev/src/cljs"]
                                               :compiler {:output-to "resources/public/js/dev.js"
                                                          :output-dir "resources/public/out"
                                                          :optimizations :none
                                                          :pretty-print true
                                                          :source-map "resources/public/out.js.map"}}}}}
 
-             :uberjar {:source-paths ["env/prod/src"]
+             :uberjar {:source-paths ["env/prod/src/clj"]
                        :omit-source true
                        :aot :all
-                       :hooks [leiningen.cljsbuild leiningen.less]
-                       :cljsbuild {:builds {:app {:source-paths ["env/prod/src"]
+                       :hooks [leiningen.less leiningen.cljsbuild]
+                       :cljsbuild {:builds {:app {:source-paths ["env/prod/src/cljs"]
                                                   :compiler {:output-to "resources/public/js/main.js"
                                                              :optimizations :advanced
                                                              :pretty-print false}}}}}}
